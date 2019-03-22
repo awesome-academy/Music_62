@@ -7,6 +7,7 @@ import com.example.musicplayer.R;
 import com.example.musicplayer.home.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
+    private static final int DELAY_TIME = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(HomeActivity.getIntent(SplashActivity.this));
                 finish();
             }
-        }, 1000);
+        }, DELAY_TIME);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.musicplayer.utils;
 
+import android.net.Uri;
+
 import com.example.musicplayer.data.model.Track;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,47 +19,19 @@ import static com.example.musicplayer.utils.Constants.Genre.TITLE;
 import static com.example.musicplayer.utils.Constants.Genre.TRACK;
 
 public class StringUtil {
+    private static Uri.Builder sBuilder;
 
     public static String initLyricApi(String trackIdMusix) {
-        return String.format(Constants.MusixMatch.BASE_URL_LYRIC
-                , trackIdMusix
-                , Constants.MusixMatch.API_KEY);
-    }
-
-    public static String initSearchSmApi(String keySearch, int limit, int offset) {
-        return String.format(Constants.MusixMatch.BASE_URL_SEARCH
-                , Constants.SoundClound.API_KEY
-                , keySearch);
-    }
-
-
-    public static String initGenreApi(String genName, String kind) {
-        return String.format(Constants.SoundClound.BASE_URL_GENRE
-                , kind
-                , genName
-                , Constants.SoundClound.API_KEY
-                , Constants.Genre.LIMIT
-                , Constants.Genre.OFFSET);
-    }
-
-    public static String initStreamUrl(int trackId) {
-        return String.format(Constants.SoundClound.BASE_URL_STREAM
-                , trackId
-                , Constants.SoundClound.API_KEY);
-    }
-
-    public static String initDownloadUrl(int trackId) {
-        return String.format(Constants.SoundClound.BASE_URL_DOWNLOAD
-                , trackId
-                , Constants.SoundClound.API_KEY);
-    }
-
-    public static String initSearchScApi(String keySearch, int limit, int offset) {
-        return String.format(Constants.SoundClound.BASE_URL_SEARCH
-                , keySearch
-                , Constants.SoundClound.API_KEY
-                , limit
-                , offset);
+        sBuilder.scheme("https")
+                .authority("api.musixmatch.com")
+                .appendPath("ws")
+                .appendPath("1.1")
+                .appendPath("track.lyrics.get")
+                .appendQueryParameter("format", "jsonp")
+                .appendQueryParameter("callback", "callback")
+                .appendQueryParameter("track_id", trackIdMusix)
+                .appendQueryParameter("apikey", "");
+        return sBuilder.build().toString();
     }
 
     public static List<Track> parseTrack(String jsonString) throws JSONException {
