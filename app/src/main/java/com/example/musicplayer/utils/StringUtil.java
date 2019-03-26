@@ -1,7 +1,6 @@
 package com.example.musicplayer.utils;
 
 import android.net.Uri;
-
 import com.example.musicplayer.data.model.Track;
 import org.json.JSONArray;
 import org.json.JSONException;
